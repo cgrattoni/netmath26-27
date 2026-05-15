@@ -1339,7 +1339,7 @@
                             <div class="col-4">
                               <input placeholder="School District Name (Required)" class="form-control" id="SchoolDistName" name="SchoolDistName" type="text" value="" readonly tabindex="-1">
                               <span class="field-validation-valid error_msg" data-valmsg-for="SchoolDistName" data-valmsg-replace="true"></span>
-                              <p class="instruction-note">Township High School District 211.</p>
+                              <p class="instruction-note">Township HS District 211.</p>
                             </div>
                           </div>
                         </div>
@@ -2143,6 +2143,7 @@
     });
 
     document.getElementById('start-tour-button').addEventListener('click', startTour);
+    window.addEventListener('load', () => window.setTimeout(startTour, 400));
 
     tourPopover.addEventListener('click', event => {
       const action = event.target && event.target.dataset ? event.target.dataset.tourAction : null;
