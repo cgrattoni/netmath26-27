@@ -1,0 +1,2155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fremd NetMath Registration Tutorial</title>
+  <style>
+    :root {
+      --ink: #102033;
+      --muted: #5b6b7d;
+      --quiet: #7d8a99;
+      --line: #ccd6e0;
+      --panel: #ffffff;
+      --soft: #f4f7fb;
+      --soft-blue: #eaf2ff;
+      --soft-orange: #fff2e8;
+      --blue: #13294b;
+      --blue-2: #1e5aa8;
+      --orange: #ff5f05;
+      --green: #0f7b57;
+      --red: #a52714;
+      --shadow: 0 18px 50px rgba(19, 41, 75, 0.14);
+      --radius: 8px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--ink);
+      background: #eef3f8;
+      line-height: 1.5;
+    }
+
+    a {
+      color: var(--blue-2);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    button,
+    .button-link {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 0.65rem 0.9rem;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      min-height: 40px;
+    }
+
+    button:hover,
+    .button-link:hover {
+      border-color: var(--blue-2);
+      color: var(--blue-2);
+      text-decoration: none;
+    }
+
+    .primary-button {
+      background: var(--blue-2);
+      border-color: var(--blue-2);
+      color: #fff;
+    }
+
+    .primary-button:hover { color: #fff; background: #174b8f; }
+
+    .orange-button {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #1b120c;
+    }
+
+    .orange-button:hover { color: #1b120c; background: #e95404; }
+
+    .page-shell {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      background: var(--blue);
+      color: #fff;
+      border-bottom: 5px solid var(--orange);
+    }
+
+    .topbar-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .site-title {
+      margin: 0;
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .site-subtitle {
+      margin: 8px 0 0;
+      color: #dbe7f5;
+      font-size: 0.98rem;
+    }
+
+    .status-pill {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .alert-strip {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--orange);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      box-shadow: 0 8px 28px rgba(19, 41, 75, 0.08);
+    }
+
+    .alert-strip strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .alert-strip p { margin: 0; color: var(--muted); }
+
+    .layout {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .side-panel,
+    .main-panel,
+    .notice-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 28px rgba(19, 41, 75, 0.08);
+    }
+
+    .side-panel {
+      position: sticky;
+      top: 16px;
+      padding: 16px;
+    }
+
+    .side-panel h2 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .side-panel p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .nav-button {
+      width: 100%;
+      justify-content: flex-start;
+      text-align: left;
+      font-size: 0.92rem;
+      background: var(--soft);
+    }
+
+    .nav-button.active {
+      border-color: var(--blue-2);
+      background: var(--soft-blue);
+      color: var(--blue);
+    }
+
+    .side-actions {
+      display: grid;
+      gap: 8px;
+    }
+
+    .main-panel {
+      overflow: hidden;
+      min-height: 680px;
+    }
+
+    .page-view { display: none; }
+    .page-view.active { display: block; }
+
+    .view-header {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+
+    .view-header h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2vw, 1.75rem);
+      letter-spacing: 0;
+    }
+
+    .view-header p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      max-width: 78ch;
+    }
+
+    .view-body {
+      padding: 24px;
+    }
+
+    .section-band {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      margin-bottom: 18px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .section-title {
+      margin: 0;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .section-content {
+      padding: 16px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field-grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .mock-field {
+      min-width: 0;
+    }
+
+    .mock-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .mock-label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .mock-value,
+    .mock-choice,
+    .readonly-box {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      background: #f7f9fc;
+      color: #26394d;
+      border-radius: 6px;
+      padding: 0.65rem 0.75rem;
+      display: flex;
+      align-items: center;
+      font-weight: 650;
+      overflow-wrap: anywhere;
+    }
+
+    .mock-choice {
+      gap: 10px;
+      flex-wrap: wrap;
+      background: #fff;
+    }
+
+    .fake-radio,
+    .fake-check {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      border: 2px solid var(--blue-2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue-2);
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .fake-radio { border-radius: 50%; }
+    .fake-check { border-radius: 4px; }
+
+    .choice-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-right: 12px;
+      font-weight: 650;
+    }
+
+    .guidance {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .guidance strong { color: var(--ink); }
+
+    .netmath-live-mock {
+      color: #212529;
+      background: #f7f7f7;
+      border: 1px solid #d7d7d7;
+      border-radius: 6px;
+      padding: 15px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .netmath-live-mock .page_title {
+      color: #000555;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1.2;
+      margin: 0 0 1.25rem;
+    }
+
+    .netmath-live-mock .live-action-row {
+      margin-bottom: 15px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .netmath-live-mock .btn {
+      border: 1px solid transparent;
+      border-radius: 0.375rem;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      font-weight: 400;
+      min-height: auto;
+      cursor: default;
+    }
+
+    .netmath-live-mock .btn-secondary {
+      background: #6c757d;
+      border-color: #6c757d;
+      color: #fff;
+    }
+
+    .netmath-live-mock .btn-primary {
+      background: #13294b;
+      border-color: #13294b;
+      color: #fff;
+    }
+
+    .netmath-live-mock .btn-info {
+      background: #0dcaf0;
+      border-color: #0dcaf0;
+      color: #000;
+    }
+
+    .netmath-live-mock .btn-success {
+      background: #198754;
+      border-color: #198754;
+      color: #fff;
+    }
+
+    .netmath-live-mock .accordion {
+      --bs-accordion-border-color: #dee2e6;
+      --bs-accordion-border-radius: 0.375rem;
+      margin-bottom: 1rem;
+    }
+
+    .netmath-live-mock .accordion-item {
+      border: 1px solid #dee2e6;
+      border-radius: 0.375rem;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .netmath-live-mock .accordion-header {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .netmath-live-mock .accordion-button {
+      width: 100%;
+      min-height: auto;
+      justify-content: flex-start;
+      display: flex;
+      border: 0;
+      border-radius: 0;
+      background: aliceblue;
+      color: #212529;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 400;
+      text-align: left;
+      cursor: default;
+    }
+
+    .netmath-live-mock .accordion-button.collapsed {
+      background: #fff;
+    }
+
+    .netmath-live-mock .accordion-body {
+      padding: 1rem 1.25rem;
+      background: #fff;
+    }
+
+    .netmath-live-mock .collapse:not(.show) {
+      display: none;
+    }
+
+    .netmath-live-mock .form_section_body {
+      background: #f6f6f6;
+      padding: 20px;
+      line-height: 2;
+    }
+
+    .netmath-live-mock .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding-right: 12px;
+      padding-left: 12px;
+    }
+
+    .netmath-live-mock .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -12px;
+      margin-left: -12px;
+    }
+
+    .netmath-live-mock .row > * {
+      width: 100%;
+      max-width: 100%;
+      padding-right: 12px;
+      padding-left: 12px;
+    }
+
+    .netmath-live-mock .mb-3 {
+      margin-bottom: 1rem;
+    }
+
+    .netmath-live-mock .mt-2 {
+      margin-top: 0.5rem;
+    }
+
+    .netmath-live-mock .small {
+      font-size: 0.875em;
+    }
+
+    .netmath-live-mock .text-muted {
+      color: #6c757d;
+    }
+
+    .netmath-live-mock .text-danger {
+      color: #dc3545;
+    }
+
+    .netmath-live-mock .field_label_div {
+      text-align: right;
+      font-weight: 400;
+    }
+
+    .netmath-live-mock label {
+      display: inline-block;
+    }
+
+    .netmath-live-mock p {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    .netmath-live-mock .form-control,
+    .netmath-live-mock .form-select,
+    .netmath-live-mock .email-image-control {
+      display: block;
+      width: 100%;
+      max-width: 280px;
+      min-height: 38px;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #dee2e6;
+      border-radius: 0.375rem;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+    }
+
+    .netmath-live-mock .form-select {
+      max-width: none;
+      padding-right: 2.25rem;
+    }
+
+    .netmath-live-mock .form-control::placeholder {
+      color: #6c757d;
+      opacity: 1;
+    }
+
+    .netmath-live-mock input[readonly],
+    .netmath-live-mock input[disabled],
+    .netmath-live-mock select[disabled],
+    .netmath-live-mock button[disabled] {
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .netmath-live-mock input[type="radio"],
+    .netmath-live-mock input[type="checkbox"] {
+      margin: 0 0.25rem;
+    }
+
+    .netmath-live-mock .copyChkbx {
+      width: 18px;
+      height: 18px;
+    }
+
+    .netmath-live-mock .copyText {
+      color: green;
+      font-weight: bold;
+    }
+
+    .netmath-live-mock .label_status_red,
+    .netmath-live-mock .review_unfilled_txt {
+      color: red;
+      font-weight: bold;
+    }
+
+    .netmath-live-mock .live-file-input {
+      float: left;
+      margin-right: 8px;
+      max-width: 280px;
+    }
+
+    .netmath-live-mock .table {
+      width: 100%;
+      margin-bottom: 1rem;
+      color: #212529;
+      border-collapse: collapse;
+    }
+
+    .netmath-live-mock .table td,
+    .netmath-live-mock .table th {
+      padding: 0.5rem;
+      border-top: 1px solid #dee2e6;
+      vertical-align: top;
+    }
+
+    .netmath-live-mock .table-striped tr:nth-child(even) td {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .netmath-live-mock .section_width {
+      width: 75%;
+      border: 2px dotted lightgray;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .netmath-live-mock .review_form_section_header_td {
+      background: #fff0e3;
+      color: #000555;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .netmath-live-mock .agreement_h {
+      font-family: Tahoma, Geneva, sans-serif;
+    }
+
+    .netmath-live-mock .agreement_p {
+      text-align: left;
+      font-family: Tahoma, Geneva, sans-serif;
+      line-height: 2;
+    }
+
+    .netmath-live-mock .instruction-note {
+      display: inline-block;
+      margin: 8px 0 0;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid #ffda6a;
+      border-left: 5px solid #ffc107;
+      border-radius: 4px;
+      background: #fff3cd;
+      color: #4a3500;
+      font-size: 0.92rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .netmath-live-mock .instruction-note.secondary {
+      border-color: #f1aeb5;
+      border-left-color: #dc3545;
+      background: #f8d7da;
+      color: #58151c;
+    }
+
+    .netmath-live-mock .instruction-note img {
+      display: block;
+      margin-top: 6px;
+    }
+
+    .netmath-live-mock .field-validation-valid {
+      display: block;
+      min-height: 0;
+    }
+
+    .netmath-live-mock .email-image-control {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 38px;
+      background: #fff;
+    }
+
+    .netmath-live-mock .email-image-control img {
+      max-height: 20px;
+      width: auto;
+    }
+
+    .netmath-live-mock .live-submit-row {
+      text-align: center;
+      margin: 1rem 0;
+    }
+
+    .netmath-live-mock [class^="col-"],
+    .netmath-live-mock [class*=" col-"] {
+      flex: 0 0 auto;
+    }
+
+    .netmath-live-mock .col-1 { width: 8.33333333%; }
+    .netmath-live-mock .col-2 { width: 16.66666667%; }
+    .netmath-live-mock .col-3 { width: 25%; }
+    .netmath-live-mock .col-4 { width: 33.33333333%; }
+    .netmath-live-mock .col-5 { width: 41.66666667%; }
+    .netmath-live-mock .col-6 { width: 50%; }
+    .netmath-live-mock .col-7 { width: 58.33333333%; }
+    .netmath-live-mock .col-8 { width: 66.66666667%; }
+    .netmath-live-mock .col-9 { width: 75%; }
+    .netmath-live-mock .col-10 { width: 83.33333333%; }
+    .netmath-live-mock .col-11 { width: 91.66666667%; }
+    .netmath-live-mock .col-12 { width: 100%; }
+
+    @media (min-width: 768px) {
+      .netmath-live-mock .col-md-1 { width: 8.33333333%; }
+      .netmath-live-mock .col-md-2 { width: 16.66666667%; }
+      .netmath-live-mock .col-md-3 { width: 25%; }
+      .netmath-live-mock .col-md-4 { width: 33.33333333%; }
+      .netmath-live-mock .col-md-5 { width: 41.66666667%; }
+      .netmath-live-mock .col-md-6 { width: 50%; }
+      .netmath-live-mock .col-md-7 { width: 58.33333333%; }
+      .netmath-live-mock .col-md-8 { width: 66.66666667%; }
+      .netmath-live-mock .col-md-9 { width: 75%; }
+      .netmath-live-mock .col-md-10 { width: 83.33333333%; }
+      .netmath-live-mock .col-md-11 { width: 91.66666667%; }
+      .netmath-live-mock .col-md-12 { width: 100%; }
+    }
+
+    @media (max-width: 820px) {
+      .netmath-live-mock .field_label_div {
+        text-align: left;
+        margin-bottom: 4px;
+      }
+
+      .netmath-live-mock [class^="col-"],
+      .netmath-live-mock [class*=" col-"],
+      .netmath-live-mock [class^="col-md-"],
+      .netmath-live-mock [class*=" col-md-"] {
+        width: 100%;
+      }
+
+      .netmath-live-mock .form-control,
+      .netmath-live-mock .form-select,
+      .netmath-live-mock .email-image-control {
+        max-width: 100%;
+      }
+    }
+
+    .warning-box,
+    .success-box,
+    .info-box,
+    .deadline-box {
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin: 0 0 16px;
+    }
+
+    .warning-box {
+      background: #fff2f0;
+      border: 1px solid #f2b8ad;
+      color: #631b12;
+    }
+
+    .success-box {
+      background: #eef8f3;
+      border: 1px solid #a9d9c6;
+      color: #113f30;
+    }
+
+    .info-box {
+      background: var(--soft-blue);
+      border: 1px solid #b7cdea;
+      color: #163a63;
+    }
+
+    .deadline-box {
+      background: var(--soft-orange);
+      border: 1px solid #f3c4a2;
+      color: #5a2507;
+    }
+
+    .warning-box p,
+    .success-box p,
+    .info-box p,
+    .deadline-box p {
+      margin: 0;
+    }
+
+    .mini-list {
+      margin: 10px 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .mini-list li { margin: 0.35rem 0; }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .doc-row {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: #fff;
+      min-height: 110px;
+    }
+
+    .doc-row strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .status-text {
+      color: var(--red);
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    .review-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .review-table th,
+    .review-table td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .review-table th {
+      width: 34%;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: #fbfdff;
+    }
+
+    .signature-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .locked-input {
+      border: 1px dashed #aab8c6;
+      border-radius: 6px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0.65rem 0.75rem;
+      color: var(--quiet);
+      background: #f8fafc;
+      font-weight: 700;
+    }
+
+    .next-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .action-tile {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 15px;
+    }
+
+    .action-tile h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .action-tile p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .email-image {
+      display: inline-block;
+      height: 42px;
+      max-width: 100%;
+      vertical-align: middle;
+      border-radius: 8px;
+    }
+
+    .tour-highlight {
+      outline: 4px solid var(--orange) !important;
+      outline-offset: 5px;
+      box-shadow: 0 0 0 9999px rgba(16, 32, 51, 0.45), 0 0 28px rgba(255, 95, 5, 0.55) !important;
+      position: relative;
+      z-index: 4000;
+      transition: outline 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .tour-popover {
+      position: fixed;
+      z-index: 5000;
+      width: min(390px, calc(100vw - 24px));
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--blue-2);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      display: none;
+    }
+
+    .tour-popover h3 {
+      margin: 0 0 7px;
+      font-size: 1rem;
+      color: var(--blue);
+    }
+
+    .tour-counter {
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    .tour-popover p {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .tour-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .tour-spacer { flex: 1; }
+
+    .small-button {
+      min-height: 34px;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.86rem;
+    }
+
+    .tour-upload-link {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #1b120c;
+      text-decoration: none;
+      flex: 1 1 100%;
+      font-weight: 800;
+    }
+
+    .tour-upload-link:hover {
+      background: #e95404;
+      border-color: #e95404;
+      color: #1b120c;
+      text-decoration: none;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin: 20px 0 0;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .side-panel { position: static; }
+      .alert-strip { grid-template-columns: 1fr; }
+      .field-grid,
+      .field-grid.three,
+      .doc-grid,
+      .signature-row,
+      .next-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page-shell { padding: 14px; }
+      .topbar-inner { padding: 18px 14px; }
+      .view-header,
+      .view-body { padding: 18px; }
+      .review-table th,
+      .review-table td {
+        display: block;
+        width: 100%;
+      }
+      .review-table td { padding-top: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div>
+        <h1 class="site-title">Fremd NetMath Registration Tutorial</h1>
+        <p class="site-subtitle">A read-only walkthrough for District 211 students completing the UIUC NetMath application.</p>
+      </div>
+      <div class="status-pill">Tutorial only - not the application</div>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="alert-strip" id="split-screen-alert">
+      <div>
+        <strong>Use this page beside the real application.</strong>
+        <p>This tutorial is not connected to UIUC and does not collect information. Open the official NetMath form in another tab or split-screen window and use this page as your guide.</p>
+      </div>
+      <a class="button-link primary-button" href="https://apps.citl.illinois.edu/NetMathRegistration/NetMathForm" target="_blank" rel="noopener">Open Official NetMath Form</a>
+    </section>
+
+    <div class="layout">
+      <aside class="side-panel" id="tour-controls-panel">
+        <h2>Walkthrough</h2>
+        <p>Start the guided tour, or jump directly to a page of the registration process.</p>
+        <button class="primary-button" id="start-tour-button" type="button">Start Walkthrough</button>
+        <nav class="nav-list" aria-label="Tutorial sections">
+          <button class="nav-button active" type="button" data-page="overview">Overview</button>
+          <button class="nav-button" type="button" data-page="application">Main Form</button>
+          <button class="nav-button" type="button" data-page="upload">Upload Documents</button>
+          <button class="nav-button" type="button" data-page="review">Review Form</button>
+          <button class="nav-button" type="button" data-page="agreement">Applicant Agreement</button>
+          <button class="nav-button" type="button" data-page="after">After You Submit</button>
+        </nav>
+        <div class="side-actions">
+          <a class="button-link" href="https://forms.gle/zRQbaMGbnw68QS8a8" target="_blank" rel="noopener">Open Fremd Upload Form</a>
+          <a class="button-link" href="https://netmath.illinois.edu/tuition/financial-aid" target="_blank" rel="noopener">Scholarship Details</a>
+        </div>
+      </aside>
+
+      <section class="main-panel" aria-live="polite">
+        <article class="page-view active" id="page-overview">
+          <header class="view-header">
+            <h2>Before You Begin</h2>
+            <p>Keep the actual NetMath application open next to this tutorial. The fields below are locked examples and reminders only. You cannot type into this tutorial.</p>
+          </header>
+          <div class="view-body">
+            <div class="info-box" id="read-only-note">
+              <p><strong>This page is deliberately read-only.</strong> The form fields in this walkthrough are locked or disabled so you do not accidentally think you are submitting anything here.</p>
+            </div>
+
+            <div class="section-band" id="prep-checklist">
+              <h3 class="section-title">What to Have Ready</h3>
+              <div class="section-content">
+                <ul class="mini-list">
+                  <li>Your name exactly as it appears in Infinite Campus.</li>
+                  <li>Your school email address and a reliable parent or guardian email address.</li>
+                  <li>Your current unweighted GPA on a 4.0 scale from Infinite Campus.</li>
+                  <li>Your course choice: Math 241 for Multivariable Calculus, or Math 257 for Linear Algebra.</li>
+                  <li>The official NetMath form open at <a href="https://apps.citl.illinois.edu/NetMathRegistration/NetMathForm" target="_blank" rel="noopener">apps.citl.illinois.edu/NetMathRegistration/NetMathForm</a>.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="deadline-box" id="cost-overview">
+              <p><strong>Plan ahead for tuition.</strong> The course costs District 211 students <strong>$300</strong>. After <strong>October 31, 2026</strong>, this tuition payment becomes non-refundable.</p>
+            </div>
+
+            <div class="success-box" id="scholarship-overview">
+              <p><strong>Scholarship option:</strong> The Jerry Uhl Scholarship can help cover tuition. The 2026-2027 application deadline is <strong>July 24, 2026 at 11:59 p.m. CST</strong>. If you plan to apply, ask your Calc BC teacher in person for a recommendation letter before summer break, then follow up by email.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="page-view" id="page-application">
+          <header class="view-header">
+            <h2>Main Registration Form</h2>
+            <p>Use these notes as you complete the first page of the official NetMath application. The layout below mirrors the live form, but every field here is locked.</p>
+          </header>
+          <div class="view-body">
+            <div class="netmath-live-mock" aria-label="Read-only mock of the NetMath High School Registration Form">
+              <h1 class="page_title">NetMath High School Registration Form</h1>
+              <div class="live-action-row">
+                <button id="expandAll" class="btn btn-secondary" type="button" disabled>Expand All</button>
+                <button id="collapseAll" class="btn btn-secondary" type="button" disabled>Collapse All</button>
+              </div>
+
+              <div class="accordion" id="accordionPersonal">
+                <div class="accordion-item" id="name-section">
+                  <h2 class="accordion-header" id="headingPersonal">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapsePersonal" disabled><strong>PERSONAL INFORMATION</strong></button>
+                  </h2>
+                  <div id="collapsePersonal" class="accordion-collapse collapse show" aria-labelledby="headingPersonal">
+                    <div class="accordion-body">
+                      <div class="container">
+                        <div class="row mb-3">
+                          <div class="col-md-1 field_label_div"><label>Name:</label></div>
+                          <div class="col-md-3">
+                            <input class="form-control" id="FirstName" name="FirstName" placeholder="First Name (Required)" type="text" value="" readonly tabindex="-1">
+                            <span class="field-validation-valid error_msg" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+                            <p class="instruction-note">As shown in Infinite Campus.</p>
+                          </div>
+                          <div class="col-md-3">
+                            <input class="form-control" id="MiddleName" name="MiddleName" placeholder="Middle Name" type="text" value="" readonly tabindex="-1">
+                            <span class="field-validation-valid error_msg" data-valmsg-for="MiddleName" data-valmsg-replace="true"></span>
+                          </div>
+                          <div class="col-md-3">
+                            <input class="form-control" id="LastName" name="LastName" placeholder="Last Name (Required)" type="text" value="" readonly tabindex="-1">
+                            <span class="field-validation-valid error_msg" data-valmsg-for="LastName" data-valmsg-replace="true"></span>
+                            <p class="instruction-note">As shown in Infinite Campus.</p>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-md-1 field_label_div"><label>Gender:</label></div>
+                          <div class="col-md-4">
+                            Male <input id="GenderMale" name="Gender" type="radio" value="Male" disabled tabindex="-1"> &nbsp;&nbsp;&nbsp;
+                            Female <input id="GenderFemale" name="Gender" type="radio" value="Female" disabled tabindex="-1"> &nbsp;&nbsp;&nbsp;
+                            Prefer Not to Answer <input id="GenderOther" name="Gender" type="radio" value="Other" disabled tabindex="-1">
+                            <span class="field-validation-valid error_msg" data-valmsg-for="Gender" data-valmsg-replace="true"></span>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-md-1 field_label_div"><label>Birthdate:</label></div>
+                          <div class="col-md-6">
+                            <input class="form-control date-picker" id="BirthDate" name="BirthDate" type="text" value="Month/Date/Year" readonly tabindex="-1">
+                            <span class="field-validation-valid error_msg" data-valmsg-for="BirthDate" data-valmsg-replace="true"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion" id="accordionContact">
+                <div class="accordion-item" id="contact-section">
+                  <h2 class="accordion-header" id="headingContact">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapseContact" disabled><strong>CONTACT INFORMATION</strong></button>
+                  </h2>
+                  <div id="collapseContact" class="accordion-collapse collapse show" aria-labelledby="headingContact">
+                    <div class="accordion-body">
+                      <div class="form_section_body">
+                        <div class="container">
+                          <div class="row mb-3">
+                            <div class="col-md-1 field_label_div"><label>Address:</label></div>
+                            <div class="col-md-3">
+                              <input class="form-control" id="AddressNumberStreet" name="AddressNumberStreet" placeholder="Num &amp; Street Name (Required)" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="AddressNumberStreet" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Your home address.</p>
+                            </div>
+                            <div class="col-md-3">
+                              <input class="form-control" id="AddressCity" name="AddressCity" placeholder="City (Required)" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="AddressCity" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-md-3"></div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                              <input class="form-control" id="AddressStateCountry" name="AddressStateCountry" placeholder="State (Required)" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="AddressStateCountry" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-md-3">
+                              <input class="form-control" id="AddressZip" name="AddressZip" placeholder="Zip Code (Required)" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="AddressZip" data-valmsg-replace="true"></span>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-1 field_label_div"><label>Phone Number:</label></div>
+                            <div class="col-md-4">
+                              <input class="form-control" id="AddressPhone" name="AddressPhone" placeholder="Phone (Required)" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="AddressPhone" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">If you do not have your own phone, use a parent or guardian phone number.</p>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-1 field_label_div"><label>Email Address:</label></div>
+                            <div class="col-md-10">
+                              <input class="form-control" id="EmailAddress" name="EmailAddress" placeholder="Email (Required)" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="EmailAddress" data-valmsg-replace="true"></span>
+                              <p class="mt-2 small text-muted">(A confirmation email will be sent to this address after you submit your application. Please use an email you check often.)</p>
+                              <p class="instruction-note secondary">Use your school email address. The final PDF will be sent here.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion" id="accordionCourse">
+                <div class="accordion-item" id="course-section">
+                  <h2 class="accordion-header" id="headingCourse">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapseCourse" disabled><strong>COURSE INFORMATION</strong></button>
+                  </h2>
+                  <div id="collapseCourse" class="accordion-collapse collapse show" aria-labelledby="headingCourse">
+                    <div class="accordion-body">
+                      <div class="form_section_body">
+                        <div class="container">
+                          <div class="row mb-3">
+                            <div class="col-4 field_label_div"><label for="courseDdlist">NetMath Course:</label></div>
+                            <div class="col-8">
+                              <select class="form-select" id="courseDdlist" name="CourseNetmathNumber" disabled tabindex="-1">
+                                <option value="">- Please select a course -</option>
+                                <option value="Math 241: Calculus III - PHS (Partner High School Students)">Math 241: Calculus III - PHS (Partner High School Students)</option>
+                                <option value="Math 257: Linear Algebra with Computational Applications - PHS (Partner High School Students)">Math 257: Linear Algebra with Computational Applications - PHS (Partner High School Students)</option>
+                                <option value="Math 285: Differential Equations - PHS (Partner High School Students)">Math 285: Differential Equations - PHS (Partner High School Students)</option>
+                              </select>
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CourseNetmathNumber" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Multivariable Calculus: select Math 241. Linear Algebra after Multivariable: select Math 257.</p>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-12">
+                              <p>Select the course you want to enroll in, from the list. Learn more about the <a href="https://netmath.illinois.edu/highschool" target="_blank" rel="noopener">Courses</a> offered.<br>
+                              <b>Note:</b> Only select the PHS section if you are affiliated with that program. Otherwise, your request will be automatically voided.</p>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-4 field_label_div"><label for="courseCreditHrs">Number of Credit Hours:</label></div>
+                            <div class="col-8">
+                              <input class="form-control" id="courseCreditHrs" name="CourseHours" readonly type="text" value="" tabindex="-1">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-2"></div>
+                            <div class="col-10">
+                              <p>(Note: Credit hours will auto load based on the course selected from the NetMath Course list above)</p>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-4 field_label_div"><label for="CourseRegisterDate">Desired Course Registration Date:</label></div>
+                            <div class="col-md-6">
+                              <input class="form-control course-date-picker" id="CourseRegisterDate" name="CourseRegisterDate" type="text" value="Month/Date/Year" readonly tabindex="-1">
+                              <p>(Note that it may take up to 2 weeks from the registration date to start the course)</p>
+                              <p class="instruction-note">For District 211, select August 10, 2026.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion" id="accordionHighSchool">
+                <div class="accordion-item" id="school-section">
+                  <h2 class="accordion-header" id="headingHighSchool">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapseHighSchool" disabled><strong>HIGH SCHOOL INFORMATION</strong></button>
+                  </h2>
+                  <div id="collapseHighSchool" class="accordion-collapse collapse show" aria-labelledby="headingHighSchool">
+                    <div class="accordion-body">
+                      <div class="form_section_body">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-4 field_label_div"><label>High School Name:</label></div>
+                            <div class="col-2">
+                              <input placeholder="Name (Required)" class="form-control" id="HsName" name="HsName" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsName" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Fremd High School.</p>
+                            </div>
+
+                            <div class="col-2 field_label_div"><label>Principal Name:</label></div>
+                            <div class="col-2">
+                              <input placeholder="Principal Name" class="form-control" id="HsPrincipalName" name="HsPrincipalName" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsPrincipalName" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Principal Mark Langer.</p>
+                            </div>
+
+                            <div class="col-4 field_label_div"><br><label>Principal Email:</label></div>
+                            <div class="col-8">
+                              <br>
+                              <input placeholder="Principal Email (Required)" class="form-control" id="HsPrincipalEmail" name="HsPrincipalEmail" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsPrincipalEmail" data-valmsg-replace="true"></span>
+                              <p>(A confirmation email will be sent to this address after you submit your application.<br>So, make sure you provide the correct email address)</p>
+                              <p class="instruction-note">Use this principal email:<img class="email-image" src="data:image/png;base64,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" alt="Principal email image"></p>
+                            </div>
+                          </div>
+
+                          <br>
+                          <div class="row">
+                            <div class="col-4 field_label_div"><label>Current GPA:</label></div>
+                            <div class="col-2">
+                              <input placeholder="GPA" class="form-control" id="HsGpa" name="HsGpa" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsGpa" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Unweighted GPA on a 4.0 scale, as shown in Infinite Campus.</p>
+                            </div>
+
+                            <div class="col-2 field_label_div"><label>Point Scale:</label></div>
+                            <div class="col-2">
+                              <input placeholder="Point Scale" class="form-control" id="HsPointScale" name="HsPointScale" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsPointScale" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Use 4.0.</p>
+                            </div>
+                          </div>
+
+                          <br>
+                          <div class="row">
+                            <div class="col-4 field_label_div"><label>School Address:</label></div>
+                            <div class="col-3">
+                              <input placeholder="Number and Street Name(Required)" class="form-control" id="hsAddNum" name="HsAddressNumberStreet" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsAddressNumberStreet" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">1000 S. Quentin Rd.</p>
+                              <input placeholder="Country (Required)" class="form-control" id="hsAddCountry" name="HsAddressCountry" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsAddressCountry" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">USA.</p>
+                            </div>
+                            <div class="col-2">
+                              <input placeholder="City (Required)" class="form-control" id="hsAddCity" name="HsAddressCity" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsAddressCity" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Palatine.</p>
+                              <input placeholder="Zip Code (Required)" class="form-control" id="hsAddZip" name="HsAddressZip" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsAddressZip" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">60067.</p>
+                            </div>
+                            <div class="col-2">
+                              <input placeholder="State (Required)" class="form-control" id="hsAddState" name="HsAddressState" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsAddressState" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Illinois.</p>
+                              <input placeholder="Phone (Required)" class="form-control" id="hsAddPhone" name="HsAddressPhone" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsAddressPhone" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">847-755-2600.</p>
+                            </div>
+                          </div>
+
+                          <br>
+                          <div class="row">
+                            <div class="col-4 field_label_div"><label>Year in School:</label></div>
+                            <div class="col-4">
+                              <input id="HsYearFreshman" name="HsYear" type="radio" value="Freshman" disabled tabindex="-1"> Freshman &nbsp;&nbsp;&nbsp;
+                              <input id="HsYearSophomore" name="HsYear" type="radio" value="Sophomore" disabled tabindex="-1"> Sophomore &nbsp;&nbsp;&nbsp;
+                              <input id="HsYearJunior" name="HsYear" type="radio" value="Junior" disabled tabindex="-1"> Junior &nbsp;&nbsp;&nbsp;
+                              <input id="HsYearSenior" name="HsYear" type="radio" value="Senior" disabled tabindex="-1"> Senior
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsYear" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Select the year you are entering. If you will be a senior next year, select Senior.</p>
+                            </div>
+                          </div>
+
+                          <br>
+                          <div class="row">
+                            <div class="col-4 field_label_div"><label>Are You Home Schooled:</label></div>
+                            <div class="col-4">
+                              Yes <input id="HsHomeSchoolYes" name="HsHomeSchool" type="radio" value="Yes" disabled tabindex="-1">&nbsp;&nbsp;&nbsp;
+                              No <input id="HsHomeSchoolNo" name="HsHomeSchool" type="radio" value="No" checked disabled tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="HsHomeSchool" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Select No.</p>
+                            </div>
+                          </div>
+
+                          <br>
+                          <div class="row">
+                            <div class="col-4 field_label_div"><label>School District's Name/Number:</label></div>
+                            <div class="col-4">
+                              <input placeholder="School District Name (Required)" class="form-control" id="SchoolDistName" name="SchoolDistName" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="SchoolDistName" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Township High School District 211.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion" id="accordionCoordinator">
+                <div class="accordion-item" id="coordinator-section">
+                  <h2 class="accordion-header" id="headingCoordinator">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapseCoordinator" disabled><strong>COORDINATOR INFORMATION</strong></button>
+                  </h2>
+                  <div id="collapseCoordinator" class="accordion-collapse collapse show" aria-labelledby="headingCoordinator">
+                    <div class="accordion-body">
+                      <div class="form_section_body">
+                        <div class="container">
+                          <p>Contact someone at your school who will act as your High School Coordinator. Usually a counselor or teacher will act as a coordinator.</p>
+
+                          <div class="row">
+                            <div class="col-4 field_label_div"><label>Coordinator Name:</label></div>
+                            <div class="col-2">
+                              <input placeholder="Name (Required)" class="form-control" id="coordName" name="CoordinatorName" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CoordinatorName" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Christopher Grattoni.</p>
+                            </div>
+
+                            <div class="col-2 field_label_div"><label>Email Address:</label></div>
+                            <div class="col-3">
+                              <input placeholder="Coordinator Email (Required)" class="form-control" id="coordEmail" name="CoordinatorEmail" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CoordinatorEmail" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Use this coordinator email:<img class="email-image" src="data:image/png;base64,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F+pNbNogT0JOCA/NoT7yvHxBIuVGRm/b3QjWk0ICARAAARAAARAAARAAARAoWgQ4KJ088a7EtZS0Xuzh1ZIvCRI3s8z3nLucUsWSye+8G1FCvJBAAARAAARAAARAAARAAASKFgF2CRtXPMJq0kmXU8tm5FB9S6YkSJgprwOHyJanCmWsVKDkRfgMAiAAAiAAAiAAAiAAAiDg5wRs5YGLV29Qdk5uR8u0JUHi4pUbL8iDz4UEB9pJIJYT8A4CIAACIAACIAACIAACIOD/BGKjI6w8OHGQOiFMPGuZeQD7hE1OSa9gyeD30sLA2mTKV3+SF+EzCIAACIAACIAACIAACIBAESFQOi7aaqbJKWml0szm8pwZEJhLDUWGVQW21EYCARAAARAAARAAARAAARAo2gTiY63lArEBQaZcepSpBFy7nt4gIysnn1BggImii4XlH+MDCIAACIAACIAACIAACIBA0STARtfymHJZObl0OfnmI0wjICUt4z45FvbUFAC1JjkSfAYBEAABEAABEAABEACBIkmAjR1ioq09uabezKjLMAKyMnMqy6lERWA3Qs4Dn0EABEAABEAABEAABECgKBOwlQ8ys3Il++qAtMxsKwuKiPDgoswJcwcBEAABEAABEAABEAABEJARiAgPkR0RZWRlS4YTARmZOaHykogw64ryMnwGARAAARAAARAAARAAARAoWgQiw6w3GtIzsyWBISA3NzdQjoJjSCCBAAiAAAiAAAiAAAiAAAiAABMICQ6yAiHiz5nMZnNgQE6e2SpghNwq2+oMHIAACIAACIAACIAACIAACBQ5AoGBUgzr/Hnn5ubx5xCxIyF9yC+wrZhfgA8gAAIgAAIgAAIgAAIgAAJFjgCHh5DvPOTmmenSJQoMyDObrWDA9asVDhyAAAiAAAiAAAiAAAiAQJEnECCECXm6lJkSYr1PIS/FZxAAARAAARAAARAAARAAARBQIQBBQgUMskEABEAABEAABEAABEAABNQJQJBQZ4MSEAABEAABEAABEAABEAABFQIQJFTAIBsEQAAEQAAEQAAEQAAEQECdAAQJdTYoAQEQAAEQAAEQAAEQAAEQUCEAQUIFDLJBAARAAARAAARAAARAAATUCUCQUGeDEhAAARAAARAAARAAARAAARUCECRUwCAbBEAABEAABEAABEAABEBAnQAECXU2KAEB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" alt="Coordinator email image"></p>
+                            </div>
+                          </div>
+
+                          <br><br>
+                          <div class="row" id="coordinator-checkbox">
+                            <div class="col-2 field_label_div">
+                              <input type="checkbox" id="copyCoordAddChkbx" class="copyChkbx" checked disabled tabindex="-1">
+                            </div>
+                            <div class="col-9">
+                              <p class="copyText">Check this box to copy High School address here (if Coordinator's official address is same as your High School Address)</p>
+                              <p class="instruction-note">Check this box.</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-4 field_label_div">
+                              <label>Coordinator Address:</label>
+                              <p>(If different from high school address above)</p>
+                            </div>
+                            <div class="col-3">
+                              <input placeholder="Number and Street Name(Required)" class="form-control" id="coAddNum" name="CoordAddressNumberStreet" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CoordAddressNumberStreet" data-valmsg-replace="true"></span>
+                              <input placeholder="Country (Required)" class="form-control" id="coAddCountry" name="CoordAddressCountry" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CoordAddressCountry" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-2">
+                              <input placeholder="City (Required)" class="form-control" id="coAddCity" name="CoordAddressCity" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CoordAddressCity" data-valmsg-replace="true"></span>
+                              <input placeholder="Zip Code (Required)" class="form-control" id="coAddZip" name="CoordAddressZip" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CoordAddressZip" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-2">
+                              <input placeholder="State (Required)" class="form-control" id="coAddState" name="CoordAddressState" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CoordAddressState" data-valmsg-replace="true"></span>
+                              <input placeholder="Phone (Required)" class="form-control" id="coAddPhone" name="CoordAddressPhone" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CoordAddressPhone" data-valmsg-replace="true"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion" id="accordionProctor">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingProctor">
+                    <button class="accordion-button collapsed" type="button" aria-expanded="false" aria-controls="collapseProctor" disabled><strong>TEST PROCTOR INFORMATION</strong></button>
+                  </h2>
+                  <div id="collapseProctor" class="accordion-collapse collapse" aria-labelledby="headingProctor">
+                    <div class="accordion-body">
+                      <div class="form_section_body">
+                        <strong style="color: indianred;">COVID Update: Due to pandemic-related school closures, high school students may take online exams in all NetMath courses. Students are not required to submit proctor information on the HS Registration Form at this time. Please skip this section of the form.</strong>
+                        <p><strong>Note: </strong>To be a proctor, the individual must meet at least one of the following criteria, and not be a member of the student's family: Principal or Superintendent of Educational Service Region, School, or District, either Public or Parochial; Dean, Academic Department Head, Extension or Correspondence Administrator, Registrar, or Official Testing Service of an Accredited University or College; Full-Time High School or College Instructor or Librarian; Educational Officer (Armed Services Personnel Only). Exams will only be mailed to institutional addresses. <a href="https://netmath.illinois.edu/proctors" target="_blank" rel="noopener">Read more</a> about proctors.</p>
+                        <br>
+                        <div class="container">
+                          <div class="row mb-3">
+                            <div class="col-4 field_label_div"><label>Proctor Name:</label></div>
+                            <div class="col-2"><input value="NA" class="form-control" id="procName" name="ProctorName" readonly type="text" tabindex="-1"></div>
+                            <div class="col-2 field_label_div"><label>Email Address:</label></div>
+                            <div class="col-3"><input placeholder="Proctor Email (Required)" value="NA" class="form-control" id="procEmail" name="ProctorEmail" readonly type="text" tabindex="-1"></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-4 field_label_div">
+                              <label>Proctor's Institution Address:</label>
+                              <p>(If different from high school address above)</p>
+                            </div>
+                            <div class="col-3">
+                              <input placeholder="Number and Street Name (Required)" value="NA" class="form-control" id="procAddNum" name="ProctorAddressNumberStreet" readonly type="text" tabindex="-1">
+                              <input placeholder="Country (Required)" value="NA" class="form-control" id="procAddCountry" name="ProctorAddressCountry" readonly type="text" tabindex="-1">
+                            </div>
+                            <div class="col-2">
+                              <input placeholder="City (Required)" value="NA" class="form-control" id="procAddCity" name="ProctorAddressCity" readonly type="text" tabindex="-1">
+                              <input placeholder="Zip Code (Required)" value="NA" class="form-control" id="procAddZip" name="ProctorAddressZip" readonly type="text" tabindex="-1">
+                            </div>
+                            <div class="col-2">
+                              <input placeholder="State (Required)" value="NA" class="form-control" id="procAddState" name="ProctorAddressState" readonly type="text" tabindex="-1">
+                              <input placeholder="Phone (Required)" value="NA" class="form-control" id="procAddPhone" name="ProctorAddressPhone" readonly type="text" tabindex="-1">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion" id="accordionParent">
+                <div class="accordion-item" id="parent-section">
+                  <h2 class="accordion-header" id="headingParent">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapseParent" disabled><strong>PARENT INFORMATION</strong></button>
+                  </h2>
+                  <div id="collapseParent" class="accordion-collapse collapse show" aria-labelledby="headingParent">
+                    <div class="accordion-body">
+                      <div class="form_section_body">
+                        <p>A confirmation email will be sent to the parent to confirm their consent.</p>
+                        <br>
+                        <div class="container">
+                          <div class="row mb-3">
+                            <div class="col-4 field_label_div"><label>Parent Name:</label></div>
+                            <div class="col-2">
+                              <input placeholder="Name (Required)" class="form-control" id="parentName" name="ParentName" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="ParentName" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-2 field_label_div"><label>Email Address:</label></div>
+                            <div class="col-3">
+                              <input placeholder="Parent Email (Required)" class="form-control" id="parentEmail" name="ParentEmail" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="ParentEmail" data-valmsg-replace="true"></span>
+                              <p>(A confirmation email will be sent to this address after you submit your application. So, make sure you provide the correct email address)</p>
+                              <p class="instruction-note secondary">Make sure this is an accurate email address for your parent or guardian.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion" id="accordionAcadHistory">
+                <div class="accordion-item" id="academic-history-section">
+                  <h2 class="accordion-header" id="headingAcadHistory">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapseAcadHistory" disabled><strong>ACADEMIC HISTORY</strong></button>
+                  </h2>
+                  <div id="collapseAcadHistory" class="accordion-collapse collapse show" aria-labelledby="headingAcadHistory">
+                    <div class="accordion-body">
+                      <div class="form_section_body">
+                        <div class="container">
+                          <div class="row mb-3">
+                            <div class="col-4 field_label_div"><label>Have you previously registered with University of Illinois:</label></div>
+                            <div class="col-4">
+                              Yes <input id="PrevRegUofIYes" name="PrevRegUofI" type="radio" value="Yes" disabled tabindex="-1">&nbsp;&nbsp;&nbsp;
+                              No <input id="PrevRegUofINo" name="PrevRegUofI" type="radio" value="No" disabled tabindex="-1"><br>
+                              <span class="field-validation-valid error_msg" data-valmsg-for="PrevRegUofI" data-valmsg-replace="true"></span>
+                              <p class="instruction-note">Multivariable Calculus is probably No. Linear Algebra after NetMath Multivariable is probably Yes.</p>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-4 field_label_div">
+                              <label>Term of Enrollment:</label>
+                              <p>(If Yes, list your last term of enrollment (month/year))</p>
+                            </div>
+                            <div class="col-4">
+                              <input placeholder="Date (mm/yyyy)" class="form-control" id="PrevRegUofIDateTxtBx" name="PrevRegUofIDate" type="text" value="" readonly tabindex="-1">
+                              <p class="instruction-note">If you select Yes, use August of the year you took Multivariable.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion" id="accordionCitizenInfo">
+                <div class="accordion-item" id="citizenship-section">
+                  <h2 class="accordion-header" id="headingCitizenInfo">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapseCitizenInfo" disabled><strong>CITIZENSHIP INFORMATION</strong></button>
+                  </h2>
+                  <div id="collapseCitizenInfo" class="accordion-collapse collapse show" aria-labelledby="headingCitizenInfo">
+                    <div class="accordion-body">
+                      <div class="form_section_body">
+                        <div class="container">
+                          <div class="row mb-3">
+                            <div class="col-6 field_label_div"><label>Will you have resided in the State of Illinois for the twelve months preceding this enrollment?</label></div>
+                            <div class="col-4">
+                              Yes <input id="CitzYearBefrEnrollYes" name="CitzYearBefrEnroll" type="radio" value="Yes" disabled tabindex="-1">&nbsp;&nbsp;&nbsp;
+                              No <input id="CitzYearBefrEnrollNo" name="CitzYearBefrEnroll" type="radio" value="No" disabled tabindex="-1">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-6 field_label_div"><label>Indicate your citizenship status:</label></div>
+                            <div class="col-4">
+                              <input id="CitzOfUs" name="CitzStatus" type="radio" value="USA" disabled tabindex="-1"> American Citizen <br>
+                              <input id="CitzOfNonUs" name="CitzStatus" type="radio" value="NonUSA" disabled tabindex="-1"> Non Citizen - Other <br>
+                              <input id="CitzPermRes" name="CitzStatus" type="radio" value="PR" disabled tabindex="-1"> Permanent Resident<br>
+                              <input id="CitzVisa" name="CitzStatus" type="radio" value="Visa" disabled tabindex="-1"> Currently in US with Non-Immigrant Visa<br>
+                              <input id="CitzNeedVisa" name="CitzStatus" type="radio" value="NeedVisa" disabled tabindex="-1"> Need Visa Eligibility Documents <br>
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CitzStatus" data-valmsg-replace="true"></span>
+                              <p class="instruction-note secondary">Check with your parents or guardians if you need guidance on which value to select.</p>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3" id="NonUsCitzTitleDiv" style="width: 110%;">
+                            <div class="col-10">
+                              <h4 id="NonUsCitzTitle" style="background-color: lightsteelblue; height: 35px; padding: 5px 5px; color: white;"></h4>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3" id="NonUsCitzNoteDiv">
+                            <div class="col-11"><p id="NonUsCitzNote" class="text-danger"></p></div>
+                          </div>
+
+                          <div class="row mb-3" id="CitzCountryDiv">
+                            <div class="col-6 field_label_div"><label>If you are not an American citizen, indicate country of citizenship: </label></div>
+                            <div class="col-4">
+                              <input placeholder="Country Name" class="form-control" id="CitzCountryTxtBx" name="CitzCountry" type="text" value="" readonly tabindex="-1">
+                              <span class="field-validation-valid error_msg" data-valmsg-for="CitzCountry" data-valmsg-replace="true"></span>
+                            </div>
+                          </div>
+
+                          <div id="NeedVisaDiv">
+                            <div class="row mb-3">
+                              <div class="col-6 field_label_div"><label>If you need visa eligibility documents from the University of Illinois at Urbana-Champaign, please indicate type:</label></div>
+                              <div class="col-4">
+                                <input id="CitzNeedVisaTypeF1" name="CitzNeedVisaType" type="radio" value="f1" disabled tabindex="-1"> F-1 <br>
+                                <input id="CitzNeedVisaTypeJ1" name="CitzNeedVisaType" type="radio" value="j1" disabled tabindex="-1"> J-1 <br>
+                                Indicate Program Sponsor: <input placeholder="J1 Sponsor Name" class="form-control" id="CitzNeedVisaSponsUofITxtBx" name="CitzNeedVisaSponsUofI" type="text" value="" readonly tabindex="-1">
+                                <span class="field-validation-valid error_msg" data-valmsg-for="CitzNeedVisaSponsUofI" data-valmsg-replace="true"></span>
+                              </div>
+                            </div>
+
+                            <div class="row mb-3">
+                              <div class="col-6 field_label_div"><label>If you do <strong>NOT</strong> need visa eligibility documents from the University of Illinois, indicate the Program Sponsor that will be issuing them:</label></div>
+                              <div class="col-4">
+                                <input id="CitzNeedVisaTypeOther" name="CitzNeedVisaType" type="radio" value="other" disabled tabindex="-1"> Do Not Need Documents from U of I <br>
+                                <input placeholder="Other Sponsor Name" class="form-control" id="CitzNeedVisaSponsOther" name="CitzNeedVisaSponsOther" type="text" value="" readonly tabindex="-1">
+                                <span class="field-validation-valid error_msg" data-valmsg-for="CitzNeedVisaType" data-valmsg-replace="true"></span>
+                                <span class="field-validation-valid error_msg" data-valmsg-for="CitzNeedVisaSponsOther" data-valmsg-replace="true"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="live-submit-row">
+                <button type="button" class="btn btn-primary" disabled>Proceed to Upload Documents</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="page-view" id="page-upload">
+          <header class="view-header">
+            <h2>Upload Documents</h2>
+            <p>This is the second screen after you proceed from the main registration form.</p>
+          </header>
+          <div class="view-body">
+            <div class="success-box" id="no-upload-message">
+              <p><strong>District 211 students do not need to upload anything here.</strong> If you are taking this course through a District 211 school, you may proceed without uploading documents.</p>
+            </div>
+            <div class="info-box" id="ap-score-note">
+              <p>Multivariable Calculus has a prerequisite of a 4 or 5 on the AP Calculus BC exam. Fremd will collect this information on your behalf. No upload is required in the NetMath form.</p>
+            </div>
+            <div class="netmath-live-mock" id="upload-mock-list" aria-label="Read-only mock of the NetMath upload screen">
+              <div class="accordion" id="accordionUpload">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingUpload">
+                    <button class="accordion-button" type="button" aria-expanded="true" aria-controls="collapseUpload" disabled><strong>UPLOAD DOCUMENTS</strong></button>
+                  </h2>
+                  <div id="collapseUpload" class="accordion-collapse collapse show" aria-labelledby="headingUpload">
+                    <div class="accordion-body">
+                      <div class="form_section_body">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-11">
+                              <p>It is not necessary to upload your documents in order to submit your application. You can still send a copy of them in mail along with the completed application form. If you want to skip this step for now, just click on the 'Review and Submit Form' button to proceed.<br>
+                              The file that you upload must be one of these types: <strong>.doc, .docx, .pdf, .jpg, .png, .gif</strong></p>
+                              <p style="color: red;">Note: Please <strong>do not submit any documents containing Social Security Numbers</strong>. If a document contains an SSN please redact it prior to uploading the document.</p>
+                              <p style="color: red;">Note: If you have used our system before and uploaded any documents, we may still have your records saved. We advise you to still go ahead and upload again to make sure we have your latest documents on file. <u>Uploading again will replace your old file.</u></p>
+                              <p class="instruction-note secondary">District 211 students taking this through Fremd do not need to upload anything here. No uploads required.</p>
+                              <br>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-3 field_label_div"><label>High School Transcript:</label></div>
+                            <div class="col-9">
+                              <input class="live-file-input" type="file" name="highSchoolTranscript" id="highSchoolTranscript" disabled tabindex="-1">
+                              <input type="button" class="btn btn-info" value="Click to Upload" disabled tabindex="-1">
+                              <label class="label_status_red">Not Uploaded</label>
+                              <p class="instruction-note">Leave blank for District 211 registration.</p>
+                            </div>
+                          </div>
+                          <br><br>
+
+                          <div class="row">
+                            <div class="col-3 field_label_div"><label>ACT or AP Scores, if required:</label></div>
+                            <div class="col-9">
+                              <input class="live-file-input" type="file" name="actApScores" id="actApScores" disabled tabindex="-1">
+                              <input type="button" class="btn btn-info" value="Click to Upload" disabled tabindex="-1">
+                              <label class="label_status_red">Not Uploaded</label>
+                              <p class="instruction-note">Fremd will collect needed AP Calculus BC information.</p>
+                            </div>
+                          </div>
+                          <br><br>
+
+                          <div class="row">
+                            <div class="col-3 field_label_div"><label>SAT Scores, if required:</label></div>
+                            <div class="col-9">
+                              <input class="live-file-input" type="file" name="satScores" id="satScores" disabled tabindex="-1">
+                              <input type="button" class="btn btn-info" value="Click to Upload" disabled tabindex="-1">
+                              <label class="label_status_red">Not Uploaded</label>
+                              <p class="instruction-note">Not needed for District 211 NetMath registration.</p>
+                            </div>
+                          </div>
+                          <br><br>
+
+                          <div class="row">
+                            <div class="col-3 field_label_div"><label>Proof of Non-immigrant status:<br>(Ex: I-94 or other proof of status):</label></div>
+                            <div class="col-9">
+                              <input class="live-file-input" type="file" name="proofOfStatus" id="proofOfStatus" disabled tabindex="-1">
+                              <input type="button" class="btn btn-info" value="Click to Upload" disabled tabindex="-1">
+                              <label class="label_status_red">Not Uploaded</label>
+                              <p class="instruction-note">Only relevant if the official application indicates it applies to you.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="live-submit-row">
+                <button type="button" class="btn btn-info" disabled>Back to Form</button>
+                <button type="button" class="btn btn-primary" disabled>Proceed to Review Form</button>
+              </div>
+            </div>
+            <p class="footer-note">On the actual NetMath page, choose the button to proceed to the review form.</p>
+          </div>
+        </article>
+
+        <article class="page-view" id="page-review">
+          <header class="view-header">
+            <h2>Review Form</h2>
+            <p>Before proceeding, read every field carefully. This information creates an official record at UIUC.</p>
+          </header>
+          <div class="view-body">
+            <div class="warning-box" id="review-warning">
+              <p><strong>Take this screen seriously.</strong> It is much easier to submit correct information now than to correct the spelling of your name, email address, course, or school information later.</p>
+            </div>
+            <div class="netmath-live-mock" id="review-check-table" aria-label="Read-only mock of the NetMath review screen">
+              <h1 class="page_title">Review Form Details</h1>
+              <table class="table table-striped section_width">
+                <tbody>
+                  <tr>
+                    <td colspan="2" class="review_form_section_header_td">Personal Information</td>
+                  </tr>
+                  <tr>
+                    <td>Name:</td>
+                    <td><span class="instruction-note">Matches Infinite Campus exactly.</span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="review_form_section_header_td">Contact Information</td>
+                  </tr>
+                  <tr>
+                    <td>Email:</td>
+                    <td><span class="instruction-note secondary">Uses your school email address. This is where the application PDF will be sent after submission.</span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="review_form_section_header_td">Course Information</td>
+                  </tr>
+                  <tr>
+                    <td>NetMath Course Number:</td>
+                    <td><span class="instruction-note">Math 241 for Multivariable Calculus, or Math 257 for Linear Algebra.</span></td>
+                  </tr>
+                  <tr>
+                    <td>Course Date:</td>
+                    <td><span class="instruction-note">August 10, 2026 for District 211 students.</span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="review_form_section_header_td">Parent Information</td>
+                  </tr>
+                  <tr>
+                    <td>Parent Email:</td>
+                    <td><span class="instruction-note secondary">Accurate and checked regularly by your parent or guardian.</span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="review_form_section_header_td">Coordinator Information</td>
+                  </tr>
+                  <tr>
+                    <td>Coordinator Name:</td>
+                    <td>Christopher Grattoni</td>
+                  </tr>
+                  <tr>
+                    <td>Documents Uploaded</td>
+                    <td><label class="label_status_red">Not Uploaded</label> <span class="instruction-note">This is expected for District 211 students.</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="live-submit-row">
+                <button type="button" class="btn btn-info" disabled>Back to Form</button>
+                <button type="button" class="btn btn-primary" disabled>Proceed to Submit</button>
+              </div>
+            </div>
+            <div class="info-box" id="review-next-note" style="margin-top: 16px;">
+              <p>After reviewing, the official form sends you to the Applicant Agreement screen. You are close, but you are not finished with the Fremd registration process yet.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="page-view" id="page-agreement">
+          <header class="view-header">
+            <h2>Applicant Agreement</h2>
+            <p>The agreement page asks you to confirm that you have read the official terms and FERPA notice.</p>
+          </header>
+          <div class="view-body">
+            <div class="netmath-live-mock" id="agreement-read" aria-label="Read-only mock of the NetMath applicant agreement screen">
+              <div class="container">
+                <div class="row">
+                  <div class="col-11">
+                    <h1 class="agreement_h" style="text-align: center;">Applicant's Agreement</h1>
+                    <br>
+                    <p class="agreement_p">I understand that withholding information requested on this enrollment form or giving false information may make me ineligible for admission to the University or subject to dismissal. I also have read and agree to abide by all UIUC NetMath registration and drop policies and procedures (<a target="_blank" href="http://online.illinois.edu/getting-started/dropping-a-class" rel="noopener">http://online.illinois.edu/getting-started/dropping-a-class</a>). By signing this form, I agree that I am legally responsible for all tuition and fees incurred on my student account due to registration in these courses. I understand that the refund/credit policy stated at <a href="https://netmath.illinois.edu/WithdrawalsAndRefunds" target="_blank" rel="noopener">https://netmath.illinois.edu/WithdrawalsAndRefunds</a> is always in effect regardless of whether or not I have begun working on the course(s). If I fail to pay my debt in full by the bill due date, I understand I will be assessed late payment charges in accordance with University policy. In addition, failure to pay the costs of tuition and fees will result in a financial hold on my record which will prevent release of my academic transcript and future registration activity. I further understand that the University may refer my past due account for collection and may authorize legal action against me for the collection of this debt.</p>
+                    <br>
+                    <h3 class="agreement_h" style="text-align: left;">Family Educational Rights and Privacy Act</h3>
+                    <br>
+                    <p class="agreement_p">To read about your FERPA (Family Educational Rights and Privacy Act) rights and responsibilities: <a target="_blank" href="https://registrar.illinois.edu/ferpa-fs" rel="noopener">https://registrar.illinois.edu/ferpa-fs</a><br><br>Students: This message serves as your annual FERPA notification as required by law. By signing below you are verifying that you have read and understood all of the information above (including all policies contained in the links shown).<br><br>I understand that the NetMath may need to contact my high school coordinator regarding my course activities.</p>
+                  </div>
+                </div>
+                <br>
+                <div class="row" id="agreement-actions">
+                  <div class="col-10">
+                    <label style="color: red;">I have read and understood the Applicant's Agreement:</label>&nbsp;&nbsp;
+                    <input type="checkbox" id="chkAgree" disabled tabindex="-1">
+                    <p class="instruction-note">Check this box on the official form after you read the agreement.</p>
+                    <br>
+                    <label style="color: red;">Please enter your full name:</label>&nbsp;&nbsp;
+                    <input class="form-control" type="text" value="" readonly tabindex="-1">
+                    <p class="instruction-note">Enter your full name on the official form.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="live-submit-row">
+                <button type="button" class="btn btn-info" disabled>Back to Form</button>
+                <input type="button" disabled class="btn btn-success" id="submitForm" value="Submit Form" tabindex="-1">
+              </div>
+            </div>
+            <div class="warning-box" id="not-done-agreement" style="margin-top: 16px;">
+              <p><strong>You are not done after the UIUC submit button.</strong> Submitting the NetMath application sends a PDF copy to the student email address you provided. Fremd needs that PDF uploaded separately.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="page-view" id="page-after">
+          <header class="view-header">
+            <h2>After You Submit</h2>
+            <p>This final step is required for the Fremd side of your registration.</p>
+          </header>
+          <div class="view-body">
+            <div class="warning-box" id="not-done-final">
+              <p><strong>Submitting the UIUC NetMath form does not complete your Fremd registration.</strong> After you submit, watch your school email for the PDF copy of your application.</p>
+            </div>
+
+            <div class="section-band" id="uhl-scholarship">
+              <h3 class="section-title">Jerry Uhl Scholarship</h3>
+              <div class="section-content">
+                <p>The Jerry Uhl Scholarship is available to help cover NetMath tuition for Partner High School students. Fremd students have a strong history of earning this scholarship.</p>
+                <ul class="mini-list">
+                  <li>The scholarship deadline is <strong>July 24, 2026 at 11:59 p.m. CST</strong>.</li>
+                  <li>The application requires a teacher recommendation letter.</li>
+                  <li>If you plan to apply, ask your Calc BC teacher in person before you leave for summer.</li>
+                  <li>After asking in person, follow up with an email so your teacher has the details in writing.</li>
+                  <li>Apply if the scholarship would help your family plan for the $300 tuition.</li>
+                </ul>
+                <p style="margin-top: 12px;"><a class="button-link" href="https://netmath.illinois.edu/tuition/financial-aid" target="_blank" rel="noopener">View NetMath Scholarship Details</a></p>
+              </div>
+            </div>
+
+            <div class="deadline-box" id="tuition-final">
+              <p><strong>Tell your parents or guardians about the tuition now.</strong> District 211 students pay <strong>$300</strong> for the course. After <strong>October 31, 2026</strong>, the tuition payment becomes non-refundable.</p>
+            </div>
+
+            <div class="section-band" id="pdf-upload-step">
+              <h3 class="section-title">Required Fremd Follow-Up</h3>
+              <div class="section-content">
+                <p>When the PDF arrives by email, upload it to this Fremd collection form:</p>
+                <p><a class="button-link orange-button" id="fremd-pdf-upload-button" href="https://forms.gle/zRQbaMGbnw68QS8a8" target="_blank" rel="noopener">Upload Your Application PDF to Fremd</a></p>
+                <p class="guidance"><strong>You are not finished until this PDF is uploaded.</strong> Keep checking your email after you submit the NetMath application.</p>
+              </div>
+            </div>
+
+            <div class="next-actions" id="finish-checks">
+              <div class="action-tile">
+                <h3>1. Submit UIUC Form</h3>
+                <p>Complete the official NetMath application and submit it on the UIUC site.</p>
+              </div>
+              <div class="action-tile">
+                <h3>2. Find PDF Email</h3>
+                <p>Check the student email address you entered for the PDF copy of your application.</p>
+              </div>
+              <div class="action-tile">
+                <h3>3. Upload to Fremd</h3>
+                <p>Upload the PDF to the Fremd Google Form. This is required to complete the Fremd side.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <div class="tour-popover" id="tour-popover" role="dialog" aria-live="polite"></div>
+
+  <script>
+    const pages = Array.from(document.querySelectorAll('.page-view'));
+    const navButtons = Array.from(document.querySelectorAll('.nav-button'));
+    const tourPopover = document.getElementById('tour-popover');
+    let activeTour = false;
+    let tourIndex = 0;
+    let currentTarget = null;
+
+    document.querySelectorAll('.netmath-live-mock input[type="text"], .netmath-live-mock input:not([type])').forEach(field => {
+      field.readOnly = true;
+      field.tabIndex = -1;
+    });
+
+    document.querySelectorAll('.netmath-live-mock input[type="radio"], .netmath-live-mock input[type="checkbox"], .netmath-live-mock input[type="file"], .netmath-live-mock input[type="button"], .netmath-live-mock select, .netmath-live-mock button').forEach(field => {
+      field.disabled = true;
+      field.tabIndex = -1;
+    });
+
+    const tourSteps = [
+      {
+        page: 'overview',
+        target: '#split-screen-alert',
+        title: 'Use this beside the real form',
+        body: 'This tutorial is only a guide. Open the official NetMath application in another tab or split-screen window and enter information there.',
+        placement: 'bottom'
+      },
+      {
+        page: 'overview',
+        target: '#read-only-note',
+        title: 'No typing happens here',
+        body: 'The walkthrough fields are intentionally locked. Nothing on this page is submitted to UIUC or Fremd.',
+        placement: 'bottom'
+      },
+      {
+        page: 'application',
+        target: '#name-section',
+        title: 'Start with your official name',
+        body: 'Enter your name exactly as it appears in Infinite Campus. This creates an official UIUC record, so accuracy matters.',
+        placement: 'bottom'
+      },
+      {
+        page: 'application',
+        target: '#contact-section',
+        title: 'Contact information',
+        body: 'Use your home address, a reliable phone number, and your school email address. The application PDF will later be sent to this email.',
+        placement: 'bottom'
+      },
+      {
+        page: 'application',
+        target: '#course-section',
+        title: 'Choose the correct course',
+        body: 'Select Math 241 for Multivariable Calculus, or Math 257 if you already completed Multivariable and are taking Linear Algebra next year. Use August 10, 2026 as the registration date.',
+        placement: 'bottom'
+      },
+      {
+        page: 'application',
+        target: '#school-section',
+        title: 'Fremd school information',
+        body: 'Use Fremd High School, Principal Mark Langer, the Fremd address, your current unweighted GPA, and the grade level you are entering.',
+        placement: 'bottom'
+      },
+      {
+        page: 'application',
+        target: '#coordinator-section',
+        title: 'Coordinator information',
+        body: 'Use Christopher Grattoni as the coordinator, then check the box to copy the high school address for the coordinator address fields.',
+        placement: 'top'
+      },
+      {
+        page: 'application',
+        target: '#parent-section',
+        title: 'Parent information',
+        body: 'Use an accurate parent or guardian email address. A confirmation email will be sent there after submission.',
+        placement: 'top'
+      },
+      {
+        page: 'application',
+        target: '#academic-history-section',
+        title: 'Previous UIUC registration',
+        body: 'For Multivariable Calculus, this is probably No. For Linear Algebra after NetMath Multivariable, it is probably Yes, with your enrollment term listed as August of the year you took Multivariable.',
+        placement: 'top'
+      },
+      {
+        page: 'application',
+        target: '#citizenship-section',
+        title: 'Citizenship information',
+        body: 'Choose the accurate official status. Ask a parent or guardian for help if you are not sure which value applies.',
+        placement: 'top'
+      },
+      {
+        page: 'upload',
+        target: '#no-upload-message',
+        title: 'No uploads for District 211',
+        body: 'District 211 students do not need to upload anything on the NetMath upload page. Fremd will collect AP Calculus BC prerequisite information separately.',
+        placement: 'bottom'
+      },
+      {
+        page: 'review',
+        target: '#review-warning',
+        title: 'Review carefully',
+        body: 'This is your chance to catch mistakes before an official record is created. Check spelling, course selection, emails, date, and coordinator information.',
+        placement: 'bottom'
+      },
+      {
+        page: 'agreement',
+        target: '#agreement-actions',
+        title: 'Agreement page',
+        body: 'On the official form, read the agreement, check the confirmation box, and enter your full name. Then the submit button becomes available.',
+        placement: 'top'
+      },
+      {
+        page: 'after',
+        target: '#not-done-final',
+        title: 'You are not done after submit',
+        body: 'After you submit the UIUC form, a PDF copy is emailed to you. Fremd registration is not complete until you upload that PDF to the Fremd form.',
+        placement: 'bottom'
+      },
+      {
+        page: 'after',
+        target: '#uhl-scholarship',
+        title: 'Scholarship reminder',
+        body: 'The Jerry Uhl Scholarship can help cover tuition. Ask your Calc BC teacher for a recommendation before summer, then apply by July 24, 2026 at 11:59 p.m. CST.',
+        placement: 'bottom'
+      },
+      {
+        page: 'after',
+        target: '#tuition-final',
+        title: 'Plan for tuition',
+        body: 'District 211 students pay $300 for the course. After October 31, 2026, that tuition payment becomes non-refundable.',
+        placement: 'top'
+      },
+      {
+        page: 'after',
+        target: '#fremd-pdf-upload-button',
+        title: 'Upload the emailed PDF',
+        body: 'This orange button opens the Fremd Google Form. After UIUC emails you the PDF copy of your application, upload that PDF here or your Fremd registration is not complete.',
+        placement: 'top'
+      },
+      {
+        page: 'after',
+        target: '#finish-checks',
+        title: 'Final checklist',
+        body: 'Submit the UIUC form, find the emailed PDF, and upload that PDF to the Fremd Google Form. Then your Fremd side is complete.',
+        placement: 'top'
+      }
+    ];
+
+    function showPage(pageName) {
+      pages.forEach(page => page.classList.toggle('active', page.id === `page-${pageName}`));
+      navButtons.forEach(button => button.classList.toggle('active', button.dataset.page === pageName));
+    }
+
+    const initialPage = window.location.hash.replace('#', '');
+    if (initialPage && document.getElementById(`page-${initialPage}`)) {
+      showPage(initialPage);
+    }
+
+    function clearHighlight() {
+      if (currentTarget) {
+        currentTarget.classList.remove('tour-highlight');
+        currentTarget = null;
+      }
+    }
+
+    function startTour() {
+      activeTour = true;
+      tourIndex = 0;
+      renderTourStep();
+      window.addEventListener('resize', positionTour);
+      window.addEventListener('scroll', positionTour, true);
+      document.addEventListener('keydown', tourKeys);
+    }
+
+    function endTour() {
+      activeTour = false;
+      clearHighlight();
+      tourPopover.style.display = 'none';
+      window.removeEventListener('resize', positionTour);
+      window.removeEventListener('scroll', positionTour, true);
+      document.removeEventListener('keydown', tourKeys);
+    }
+
+    function tourKeys(event) {
+      if (event.key === 'Escape') endTour();
+      if (event.key === 'ArrowRight') nextTour();
+      if (event.key === 'ArrowLeft') previousTour();
+    }
+
+    function nextTour() {
+      if (tourIndex < tourSteps.length - 1) {
+        tourIndex += 1;
+        renderTourStep();
+      } else {
+        endTour();
+      }
+    }
+
+    function previousTour() {
+      if (tourIndex > 0) {
+        tourIndex -= 1;
+        renderTourStep();
+      }
+    }
+
+    function renderTourStep() {
+      if (!activeTour) return;
+      const step = tourSteps[tourIndex];
+      showPage(step.page);
+      clearHighlight();
+      const target = document.querySelector(step.target);
+      if (!target) {
+        nextTour();
+        return;
+      }
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      window.setTimeout(() => {
+        if (!activeTour) return;
+        target.classList.add('tour-highlight');
+        currentTarget = target;
+        tourPopover.innerHTML = `
+          <h3>${step.title} <span class="tour-counter">(${tourIndex + 1} / ${tourSteps.length})</span></h3>
+          <p>${step.body}</p>
+          <div class="tour-controls">
+            <button class="small-button" type="button" data-tour-action="skip">Skip</button>
+            <a class="small-button tour-upload-link" href="https://forms.gle/zRQbaMGbnw68QS8a8" target="_blank" rel="noopener">Required after UIUC submit: Upload PDF to Fremd</a>
+            <span class="tour-spacer"></span>
+            ${tourIndex > 0 ? '<button class="small-button" type="button" data-tour-action="back">Back</button>' : ''}
+            <button class="small-button primary-button" type="button" data-tour-action="next">${tourIndex === tourSteps.length - 1 ? 'Finish' : 'Next'}</button>
+          </div>
+        `;
+        tourPopover.style.display = 'block';
+        positionTour();
+      }, 260);
+    }
+
+    function positionTour() {
+      if (!activeTour || !currentTarget) return;
+      const step = tourSteps[tourIndex];
+      const rect = currentTarget.getBoundingClientRect();
+      const pop = tourPopover.getBoundingClientRect();
+      const gap = 14;
+      const viewportW = window.innerWidth;
+      const viewportH = window.innerHeight;
+      const placements = {
+        bottom: { top: rect.bottom + gap, left: rect.left + rect.width / 2 - pop.width / 2 },
+        top: { top: rect.top - pop.height - gap, left: rect.left + rect.width / 2 - pop.width / 2 },
+        left: { top: rect.top + rect.height / 2 - pop.height / 2, left: rect.left - pop.width - gap },
+        right: { top: rect.top + rect.height / 2 - pop.height / 2, left: rect.right + gap }
+      };
+      const preferred = placements[step.placement] || placements.bottom;
+      let top = preferred.top;
+      let left = preferred.left;
+      left = Math.max(12, Math.min(viewportW - pop.width - 12, left));
+      top = Math.max(12, Math.min(viewportH - pop.height - 12, top));
+      tourPopover.style.left = `${left}px`;
+      tourPopover.style.top = `${top}px`;
+    }
+
+    navButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        endTour();
+        showPage(button.dataset.page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    document.getElementById('start-tour-button').addEventListener('click', startTour);
+
+    tourPopover.addEventListener('click', event => {
+      const action = event.target && event.target.dataset ? event.target.dataset.tourAction : null;
+      if (action === 'skip') endTour();
+      if (action === 'back') previousTour();
+      if (action === 'next') nextTour();
+    });
+  </script>
+</body>
+</html>
